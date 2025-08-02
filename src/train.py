@@ -1,6 +1,7 @@
 import mlflow
 import mlflow.sklearn
 import pandas as pd
+from mlflow.models.signature import infer_signature
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, auc, f1_score, precision_recall_curve
 from sklearn.model_selection import train_test_split
@@ -9,7 +10,7 @@ from sklearn.model_selection import train_test_split
 def main():
     """
     Main function to run the model training and logging workflow
-    with advanced evaluation metrics.
+    with advanced evaluation metrics and a model signature.
     """
     # Load and Prepare Data
     print("Loading and preparing data...")
@@ -25,10 +26,10 @@ def main():
     df.totalcharges = df.totalcharges.fillna(0)
     df["churn"] = (df.churn == "yes").astype(int)
 
-    # For this MVP, I'll use a simplified feature set
+    # For this MVP, I'm using a simplified feature set
     numerical = ["tenure", "monthlycharges", "totalcharges"]
     y = df["churn"]
-    X = df[numerical]
+    X = df[numerical].astype("float64")
 
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -46,20 +47,14 @@ def main():
         lr.fit(X_train, y_train)
 
         # Evaluate Model with Advanced Metrics
-        # Get predicted probabilities for the positive class (churn=1)
         y_probs = lr.predict_proba(X_val)[:, 1]
-        # Get binary predictions (0 or 1)
         y_pred = lr.predict(X_val)
 
-        # Calculate metrics
         accuracy = accuracy_score(y_val, y_pred)
         f1 = f1_score(y_val, y_pred)
-
-        # Calculate PR-AUC
         precision, recall, _ = precision_recall_curve(y_val, y_probs)
         pr_auc = auc(recall, precision)
 
-        # Log the metrics
         print(f"Accuracy: {accuracy:.4f}")
         print(f"F1-Score: {f1:.4f}")
         print(f"PR-AUC: {pr_auc:.4f}")
@@ -68,11 +63,17 @@ def main():
         mlflow.log_metric("f1_score", f1)
         mlflow.log_metric("pr_auc", pr_auc)
 
-        # Log the model
-        mlflow.sklearn.log_model(lr, "model")
+        # Infer the model signature from the training data to enforce schema
+        signature = infer_signature(X_train, lr.predict(X_train))
+
+        # Log the model with the signature
+        mlflow.sklearn.log_model(
+            sk_model=lr,
+            name="model",
+            signature=signature,
+        )
 
         print("\nRun complete. Check the MLflow UI.")
-        print("A 'mlruns' directory has been created to store the experiment data.")
 
 
 if __name__ == "__main__":
