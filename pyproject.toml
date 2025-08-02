@@ -1,0 +1,8 @@
+# Configuration for the Black Code Formatter
+[tool.black]
+line-length = 99
+
+# Configuration for the isort Import Sorter
+[tool.isort]
+profile = "black"
+line_length = 99
