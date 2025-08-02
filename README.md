@@ -40,7 +40,7 @@ The dataset is sourced from the IBM Telco Customer Churn dataset, publicly avail
 - **Target Variable**: Churn (Outcome: Yes/No)
 - **Features**: Customer demographics, account information, and service usage details
 
-The dataset is small, facilitating fast iteration during development.
+The dataset is small, enabling fast iteration during development, while still being rich enough to support a complete demonstration of the MLOps workflow.
 
 ---
 
