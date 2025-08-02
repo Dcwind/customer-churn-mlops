@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+scikit-learn = "*"
+pandas = "*"
+numpy = "*"
+mlflow = "*"
+boto3 = "*"
+prefect = "*"
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+evidently = "*"
+
+[dev-packages]
+pytest = "*"
+black = "*"
+isort = "*"
+flake8 = "*"
+pre-commit = "*"
+
+[requires]
+python_version = "3.12"
