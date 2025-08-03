@@ -5,6 +5,9 @@ train:
 mlflow-ui:
 	pipenv run mlflow ui
 
+serve:
+	pipenv run uvicorn deployment.app:app --reload
+
 # Installation
 # Install ALL dependencies for a DEVELOPMENT environment
 install:
