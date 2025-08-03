@@ -8,6 +8,18 @@ mlflow-ui:
 serve:
 	pipenv run uvicorn deployment.app:app --reload
 
+# --- Docker Workflow ---
+docker-build:
+	docker build -f deployment/Dockerfile -t churn-prediction-service .
+
+docker-run:
+	docker run \
+  		--network="host" \
+ 		-v "$$(pwd)/mlruns:/workspaces/customer-churn-mlops/mlruns" \
+		-p 8000:8000 \
+  		churn-prediction-service
+
+
 # Installation
 # Install ALL dependencies for a DEVELOPMENT environment
 install:
