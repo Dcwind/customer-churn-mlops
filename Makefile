@@ -1,3 +1,11 @@
+# Development Workflow
+train:
+	pipenv run python src/train.py
+
+mlflow-ui:
+	pipenv run mlflow ui
+
+# Installation
 # Install ALL dependencies for a DEVELOPMENT environment
 install:
 	pip install --upgrade pip &&\
@@ -8,13 +16,17 @@ install-prod:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
-# Format code with black
-format:
-	black src/
+# Code Quality
+# Run code quality tools within the pipenv environment.
+lint:
+	pipenv run flake8 src/
 
-# Run tests 
+format:
+	pipenv run black src/
+
+# Testing
 test:
-	# Add test 
+	pipenv run pytest
 
 # Run all tasks
-all: install lint test
+all: install lint format test
