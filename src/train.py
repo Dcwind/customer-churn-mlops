@@ -66,11 +66,12 @@ def main():
         # Infer the model signature from the training data to enforce schema
         signature = infer_signature(X_train, lr.predict(X_train))
 
-        # Log the model with the signature
+        # Log the model with the signature and automatically register it under the specified name.
         mlflow.sklearn.log_model(
             sk_model=lr,
             name="model",
             signature=signature,
+            registered_model_name="churn-prediction-mvp-lr",
         )
 
         print("\nRun complete. Check the MLflow UI.")
