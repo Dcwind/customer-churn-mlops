@@ -1,3 +1,5 @@
+import os
+
 import mlflow
 import pandas as pd
 from fastapi import FastAPI
@@ -15,6 +17,12 @@ class CustomerData(BaseModel):
 
 # FastAPI App Initialization
 app = FastAPI()
+
+# Load the MLflow Tracking URI from an environment variable.
+# This makes the application configurable and portable.
+# If the variable is not set, it defaults to the local MLflow server.
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://127.0.0.1:5000")
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
 # Load the Model from MLflow Model Registry
 # For the MVP, I'm loading the latest version of the model.
