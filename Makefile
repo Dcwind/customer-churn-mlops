@@ -8,7 +8,10 @@ mlflow-ui:
 serve:
 	pipenv run uvicorn deployment.app:app --reload
 
-# --- Docker Workflow ---
+orchestrate:
+	pipenv run python orchestration/flows.py
+
+# Docker Workflow
 docker-build:
 	docker build -f deployment/Dockerfile -t churn-prediction-service .
 
