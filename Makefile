@@ -15,8 +15,9 @@ train:
 	pipenv run python src/train.py
 
 mlflow-ui:
+	export AWS_PROFILE=mlflow-app && \
 	pipenv run mlflow ui --backend-store-uri sqlite:///mlruns/mlflow.db \
-	--default-artifact-root ./mlruns/artifacts
+	--default-artifact-root s3://churn-mlops-artifacts-arriving-crow/
 
 
 serve:
@@ -30,11 +31,13 @@ docker-build:
 	docker build -f deployment/Dockerfile -t churn-prediction-service .
 
 docker-run:
-	docker run \
-  		--network="host" \
- 		-v "$$(pwd)/mlruns:/workspaces/customer-churn-mlops/mlruns" \
-		-p 8000:8000 \
-  		churn-prediction-service
+	docker run --rm -it \
+	  -e AWS_PROFILE=mlflow-app \
+	  --network="host" \
+	  -v "$$(pwd)/mlruns:/workspaces/customer-churn-mlops/mlruns" \
+	  -v ~/.aws:/root/.aws \
+	  -p 8000:8000 \
+	  churn-prediction-service
 
 # Docker Compose Workflow
 compose-up:
