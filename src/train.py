@@ -1,3 +1,5 @@
+import os
+
 import mlflow
 import mlflow.sklearn
 import pandas as pd
@@ -12,6 +14,16 @@ def main():
     Main function to run the model training and logging workflow
     with advanced evaluation metrics and a model signature.
     """
+    # Create the 'mlruns' directory if it doesn't exist.
+    # This makes the script robust and prevents errors on the first run.
+    # os.makedirs("mlruns", exist_ok=True)
+
+    # Configure MLflow to use a local SQLite database.
+    # This ensures that all artifact paths are stored relatively, making the
+    # database portable and usable by a remote or containerized server.
+    tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "http://127.0.0.1:5000")
+    mlflow.set_tracking_uri(tracking_uri)
+
     # Load and Prepare Data
     print("Loading and preparing data...")
     data_url = "https://raw.githubusercontent.com/alexeygrigorev/mlbookcamp-code/master/chapter-03-churn-prediction/WA_Fn-UseC_-Telco-Customer-Churn.csv"
