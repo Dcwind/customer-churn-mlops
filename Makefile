@@ -3,6 +3,13 @@
 init:
 	mkdir -p mlruns/artifacts
 
+# Dependency Management
+# Run this command after adding/removing packages with pipenv to update
+# the requirements.txt files.
+requirements:
+	pipenv requirements > requirements.txt
+	pipenv requirements --dev > requirements-dev.txt
+
 # Development Workflow
 train:
 	pipenv run python src/train.py

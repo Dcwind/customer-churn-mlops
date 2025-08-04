@@ -20,6 +20,7 @@ black = "*"
 isort = "*"
 flake8 = "*"
 pre-commit = "*"
+awscli = "*"
 
 [requires]
 python_version = "3.12"
