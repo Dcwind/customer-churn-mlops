@@ -210,3 +210,8 @@ __marimo__/
 data/
 
 mlruns/
+
+# Terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
