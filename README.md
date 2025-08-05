@@ -362,6 +362,55 @@ customer-churn-mlops/
 
 ---
 
+## Sample Run
+
+Below are screenshots showcasing key components of the MLOps pipeline for the Customer Churn Prediction project.
+
+### Pre-commit Runs
+![Pre-commit Run](./screenshots/precommit-3.png)
+![Pre-commit Run](./screenshots/precommit-4.png)
+
+### First Run
+First run by calling `train.py`:
+![First Run](./screenshots/firstrun-1.png)
+
+**Metric Snapshot:**
+| Metric   | Value  | Interpretation                                                                 |
+|----------|--------|-------------------------------------------------------------------------------|
+| PR-AUC   | 0.6365 | Very strong, you're catching churners well while keeping false positives low. |
+| Accuracy | 0.7977 | Good, but not very informative on imbalanced data (most customers don’t churn). |
+| F1 Score | 0.5568 | Solid balance between precision and recall. Shows your model isn't just guessing. |
+
+When running `make orchestrate`, it also runs a training:
+- ![Orchestration](./screenshots/orchestration-7.png)
+
+### MLflow UI
+Results of the first try are shown in the MLFlow UI:
+![MLflow UI](./screenshots/mlflow-2.png)
+
+After a few more runs, the training results are shown as such:
+![Multiple Runs](./screenshots/multipleruns-5.png)
+
+## Miscellaneous Screenshots
+
+### FastAPI Documentation
+![FastAPI Documentation](./screenshots/fastapi-6.png)
+
+### AWS Access
+- ![AWS Access](./screenshots/aws-8.png)
+
+### Evidently Project List
+- ![Evidently Project List](./screenshots/evidently-9.png)
+
+### Pytest Run
+- ![Pytest Run](./screenshots/pytest-10.png)
+
+### Github Actions
+- ![Github Actions Running](./screenshots/git-11.png)
+- ![Github Actions Ran](./screenshots/git-12.png)
+
+---
+
 ## Future Works
 
 - Developing a functional monitoring component as described.
