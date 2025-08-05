@@ -71,7 +71,7 @@ format:
 
 # Testing
 test:
-	pipenv run pytest
+	pipenv run python -m pytest
 
 # Run all tasks
 # all: install lint format test
