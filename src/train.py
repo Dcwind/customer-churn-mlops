@@ -8,6 +8,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, auc, f1_score, precision_recall_curve
 from sklearn.model_selection import train_test_split
 
+from data_processing import CSV_URL, load_clean_telco
+
 
 def main():
     """
@@ -26,17 +28,7 @@ def main():
 
     # Load and Prepare Data
     print("Loading and preparing data...")
-    data_url = "https://raw.githubusercontent.com/alexeygrigorev/mlbookcamp-code/master/chapter-03-churn-prediction/WA_Fn-UseC_-Telco-Customer-Churn.csv"
-    df = pd.read_csv(data_url)
-
-    # Basic data cleaning
-    df.columns = df.columns.str.lower().str.replace(" ", "_")
-    categorical_columns = list(df.dtypes[df.dtypes == "object"].index)
-    for c in categorical_columns:
-        df[c] = df[c].str.lower().str.replace(" ", "_")
-    df.totalcharges = pd.to_numeric(df.totalcharges, errors="coerce")
-    df.totalcharges = df.totalcharges.fillna(0)
-    df["churn"] = (df.churn == "yes").astype(int)
+    df = load_clean_telco(CSV_URL)
 
     # For this MVP, I'm using a simplified feature set
     numerical = ["tenure", "monthlycharges", "totalcharges"]

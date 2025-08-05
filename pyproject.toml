@@ -6,3 +6,7 @@ line-length = 99
 [tool.isort]
 profile = "black"
 line_length = 99
+
+# Configuration for Pytest
+[tool.pytest.ini_options]
+pythonpath = ["./src"]
