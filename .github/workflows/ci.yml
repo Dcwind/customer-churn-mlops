@@ -1,0 +1,55 @@
+
+# Name of the workflow, which will be displayed on the GitHub Actions tab.
+name: CI Pipeline
+
+# Controls when the workflow will run.
+on:
+  # Triggers the workflow on push events but only for the "main" branch.
+  push:
+    branches: [ "main" ]
+  # Triggers the workflow on pull request events to the "main" branch.
+  pull_request:
+    branches: [ "main" ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel.
+jobs:
+  # This workflow contains a single job called "build-and-test".
+  build-and-test:
+    # The type of runner that the job will run on.
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job.
+    steps:
+      # Step 1: Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up the Python environment.
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      # Step 3: Install Pipenv.
+      - name: Install Pipenv
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+
+      # Step 4: Install project dependencies.
+      # This uses pipenv to install from the Pipfile.lock for reproducibility.
+      - name: Install dependencies
+        run: pipenv install --dev
+
+      # Step 5: Run the linter.
+      # This command is run from within the pipenv environment.
+      - name: Lint with flake8
+        run: |
+          pipenv run flake8 src/
+
+      # Step 6: Run the unit tests.
+      # We only run the unit tests in CI because the integration test requires
+      # the full application stack (MLflow, Docker) to be running.
+      - name: Run unit tests with pytest
+        run: |
+          pipenv run python -m pytest --ignore=tests/test_prediction_service.py
