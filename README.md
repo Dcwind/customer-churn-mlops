@@ -367,12 +367,12 @@ customer-churn-mlops/
 Below are screenshots showcasing key components of the MLOps pipeline for the Customer Churn Prediction project.
 
 ### Pre-commit Runs
-![Pre-commit Run](./screenshots/precommit-3.png)
-![Pre-commit Run](./screenshots/precommit-4.png)
+![Pre-commit Run](./assets/screenshots/precommit-3.png)
+![Pre-commit Run](./assets/screenshots/precommit-4.png)
 
 ### First Run
 First run by calling `train.py`:
-![First Run](./screenshots/firstrun-1.png)
+![First Run](./assets/screenshots/firstrun-1.png)
 
 **Metric Snapshot:**
 | Metric   | Value  | Interpretation                                                                 |
@@ -382,32 +382,32 @@ First run by calling `train.py`:
 | F1 Score | 0.5568 | Solid balance between precision and recall. Shows your model isn't just guessing. |
 
 When running `make orchestrate`, it also runs a training:
-- ![Orchestration](./screenshots/orchestration-7.png)
+- ![Orchestration](./assets/screenshots/orchestration-7.png)
 
 ### MLflow UI
 Results of the first try are shown in the MLFlow UI:
-![MLflow UI](./screenshots/mlflow-2.png)
+![MLflow UI](./assets/screenshots/mlflow-2.png)
 
 After a few more runs, the training results are shown as such:
-![Multiple Runs](./screenshots/multipleruns-5.png)
+![Multiple Runs](./assets/screenshots/multipleruns-5.png)
 
 ## Miscellaneous Screenshots
 
 ### FastAPI Documentation
-![FastAPI Documentation](./screenshots/fastapi-6.png)
+![FastAPI Documentation](./assets/screenshots/fastapi-6.png)
 
 ### AWS Access
-- ![AWS Access](./screenshots/aws-8.png)
+- ![AWS Access](./assets/screenshots/aws-8.png)
 
 ### Evidently Project List
-- ![Evidently Project List](./screenshots/evidently-9.png)
+- ![Evidently Project List](./assets/screenshots/evidently-9.png)
 
 ### Pytest Run
-- ![Pytest Run](./screenshots/pytest-10.png)
+- ![Pytest Run](./assets/screenshots/pytest-10.png)
 
 ### Github Actions
-- ![Github Actions Running](./screenshots/git-11.png)
-- ![Github Actions Ran](./screenshots/git-12.png)
+- ![Github Actions Running](./assets/screenshots/git-11.png)
+- ![Github Actions Ran](./assets/screenshots/git-12.png)
 
 ---
 
