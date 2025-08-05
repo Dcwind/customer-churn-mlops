@@ -26,6 +26,10 @@ serve:
 orchestrate:
 	pipenv run python orchestration/flows.py
 
+# Generate a visual data drift report using Evidently.
+report:
+	pipenv run python orchestration/generate_report.py
+
 # Docker Workflow
 docker-build:
 	docker build -f deployment/Dockerfile -t churn-prediction-service .
