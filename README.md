@@ -46,7 +46,7 @@ The dataset is sourced from the IBM Telco Customer Churn dataset, publicly avail
 - **Target Variable**: Churn (Outcome: Yes/No)
 - **Features**: Customer demographics, account information, and service usage details
 
-The dataset is small, facilitating fast iteration during development.
+The dataset is small, enabling fast iteration during development, while still being rich enough to support a complete demonstration of the MLOps workflow.
 
 ---
 
@@ -367,11 +367,12 @@ customer-churn-mlops/
 Below are screenshots showcasing key components of the MLOps pipeline for the Customer Churn Prediction project.
 
 ### Pre-commit Runs
-![Pre-commit Run](./assets/screenshots/precommit-3.png)
 ![Pre-commit Run](./assets/screenshots/precommit-4.png)
+![Pre-commit Run](./assets/screenshots/precommit-3.png)
 
 ### First Run
 First run by calling `train.py`:
+
 ![First Run](./assets/screenshots/firstrun-1.png)
 
 **Metric Snapshot:**
@@ -382,10 +383,12 @@ First run by calling `train.py`:
 | F1 Score | 0.5568 | Solid balance between precision and recall. Shows your model isn't just guessing. |
 
 When running `make orchestrate`, it also runs a training:
-- ![Orchestration](./assets/screenshots/orchestration-7.png)
+
+![Orchestration](./assets/screenshots/orchestration-7.png)
 
 ### MLflow UI
 Results of the first try are shown in the MLFlow UI:
+
 ![MLflow UI](./assets/screenshots/mlflow-2.png)
 
 After a few more runs, the training results are shown as such:
@@ -394,20 +397,35 @@ After a few more runs, the training results are shown as such:
 ## Miscellaneous Screenshots
 
 ### FastAPI Documentation
+
 ![FastAPI Documentation](./assets/screenshots/fastapi-6.png)
 
-### AWS Access
-- ![AWS Access](./assets/screenshots/aws-8.png)
+### AWS Credentials for Terraform
+This project uses a secure "bootstrap" pattern for provisioning infrastructure with Terraform.
+
+1.  An initial, high-privilege IAM user (with `AdministratorAccess`) is used **only** to run the initial `terraform apply`.
+
+2.  Terraform then provisions all necessary resources, including:
+    * An S3 bucket for MLflow artifacts.
+    * A new, dedicated IAM user with a least-privilege policy, granting it access **only** to that specific S3 bucket.
+
+3.  The application (MLflow) is then configured with the credentials of this new, limited user.
+
+This approach ensures that the application operates with the minimum permissions required, decoupling it from the powerful credentials needed to manage the infrastructure and significantly enhancing the security posture of the project.
+
+![AWS Access](./assets/screenshots/aws-8.png)
 
 ### Evidently Project List
-- ![Evidently Project List](./assets/screenshots/evidently-9.png)
+![Evidently Project List](./assets/screenshots/evidently-9.png)
 
 ### Pytest Run
-- ![Pytest Run](./assets/screenshots/pytest-10.png)
+
+![Pytest Run](./assets/screenshots/pytest-10.png)
 
 ### Github Actions
-- ![Github Actions Running](./assets/screenshots/git-11.png)
-- ![Github Actions Ran](./assets/screenshots/git-12.png)
+![Github Actions Running](./assets/screenshots/git-11.png)
+
+![Github Actions Ran](./assets/screenshots/git-12.png)
 
 ---
 
